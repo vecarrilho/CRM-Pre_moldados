@@ -30,12 +30,15 @@ class ProductResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label(__('Name'))
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('height')
+                    ->label(__('Height'))
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('length')
+                    ->label(__('Length'))
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('area')
@@ -52,11 +55,14 @@ class ProductResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label(__('Name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('height')
+                    ->label(__('Height'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('length')
+                    ->label(__('Length'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('area')

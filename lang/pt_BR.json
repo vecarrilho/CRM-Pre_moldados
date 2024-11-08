@@ -92,5 +92,7 @@
     "Client": "Cliente",
     "Created at": "Criado em",
     "Updated at": "Atualizado em",
-    "Cpf cnpj": "CPF/CNPJ"
+    "Cpf cnpj": "CPF/CNPJ",
+    "Height": "Altura",
+    "Length": "Largura"
 }
