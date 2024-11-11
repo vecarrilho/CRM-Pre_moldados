@@ -21,8 +21,14 @@ class Client extends Model
 
     public $timestamps = false;
 
-    public function user()
+    
+    public function user_client()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(UserClient::class, 'client_id');
+    }
+
+    public function sheets()
+    {
+        return $this->hasMany(Sheet::class);
     }
 }

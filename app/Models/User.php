@@ -48,13 +48,10 @@ class User extends Authenticatable
         ];
     }
 
+    
+
     public function user_client(): HasMany
     {
-        return $this->hasMany(UserClient::class);
-    }
-
-    public function clients()
-    {
-        return $this->hasMany(Client::class);
+        return $this->hasMany(UserClient::class, 'user_id');
     }
 }

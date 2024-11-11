@@ -22,7 +22,7 @@ class UserClientsRelationManager extends RelationManager
                 Forms\Components\Select::make('client_id')
                     ->label(__('Client'))
                     ->required()
-                    ->options(Client::where('status', true)->pluck('name', 'id')),
+                    ->options(Client::leftJoin('user_client', 'user_client.client_id', 'clients.id')->where('user_client.client_id', null)->pluck('clients.name', 'clients.id')),
             ]);
     }
 
@@ -31,13 +31,15 @@ class UserClientsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('name')
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('client.name'),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                ->label(__('Create user client'))
+                ->slideOver(),
             ])
             ->actions([
                 // Tables\Actions\EditAction::make(),
