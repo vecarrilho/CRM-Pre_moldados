@@ -19,4 +19,9 @@ class Sheet extends Model
     ];
 
     public $timestamps = false;
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
 }

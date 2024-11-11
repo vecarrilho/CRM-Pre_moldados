@@ -101,5 +101,7 @@
     "Construction cep": "CEP da obra",
     "Construction max height": "Altura máxima da obra",
     "Construction max length": "Largura máxima da obra",
-    "Construction has stake": "Obra tem estaca?"
+    "Construction has stake": "Obra tem estaca?",
+    "Create user client": "Vincular cliente",
+    "User client": "Vinculo de cliente"
 }
