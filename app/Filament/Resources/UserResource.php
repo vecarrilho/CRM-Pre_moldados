@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\RolesEnum;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\Role;
@@ -14,6 +15,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class UserResource extends Resource
 {
@@ -33,7 +35,19 @@ class UserResource extends Resource
                 Forms\Components\Select::make('role_id')
                     ->label(__('Role'))
                     ->relationship('roles', 'name')
-                    ->options(Role::all()->pluck('name', 'id'))
+                    ->options(function () {
+                        $user = Auth::user();
+                        if ($user->hasRole(RolesEnum::SuperAdmin->value)) {
+                            return Role::all()->mapWithKeys(function ($role) {
+                                return [$role->id => $role->name->getLabel()]; 
+                            });
+                        }
+                        return Role::where('name', '!=', RolesEnum::SuperAdmin->value)
+                            ->get()
+                            ->mapWithKeys(function ($role) {
+                                return [$role->id => $role->name->getLabel()]; 
+                            });
+                    })
                     ->required(),
                 Forms\Components\TextInput::make('name')
                     ->label(__('Name'))

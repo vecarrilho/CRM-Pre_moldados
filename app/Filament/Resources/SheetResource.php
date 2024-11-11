@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\StatusEnum;
 use App\Filament\Resources\SheetResource\Pages;
 use App\Filament\Resources\SheetResource\RelationManagers;
 use App\Models\Sheet;
@@ -101,26 +102,40 @@ class SheetResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('client_id')
+                Tables\Columns\TextColumn::make('client.name')
+                    ->label(__('Client'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label(__('Construction name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('city')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label(__('Construction city'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('uf')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label(__('Construction uf'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('cep')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('max_height')
+                    ->label(__('Construction max height'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('max_length')
+                    ->label(__('Construction max length'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\IconColumn::make('has_stake')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label(__('Construction has stake'))
                     ->boolean(),
                 Tables\Columns\TextColumn::make('status')
+                    ->badge()
+                    ->formatStateUsing(fn ($state) => StatusEnum::from($state)?->getLabel())
                     ->searchable(),
             ])
             ->filters([
