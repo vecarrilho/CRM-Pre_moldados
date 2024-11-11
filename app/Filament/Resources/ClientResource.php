@@ -46,9 +46,6 @@ class ClientResource extends Resource
                     ->mask('(99) 99999-9999')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('city')
-                    ->label(__('City'))
-                    ->maxLength(255),
                 Forms\Components\Select::make('uf')
                     ->label(__('Uf'))
                     ->options([
@@ -79,8 +76,11 @@ class ClientResource extends Resource
                         'SP' => 'São Paulo',
                         'SE' => 'Sergipe',
                         'TO' => 'Tocantins',
-                    ])
-                    ->searchable(),
+                        ])
+                        ->searchable(),
+                Forms\Components\TextInput::make('city')
+                    ->label(__('City'))
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('cep')
                     ->mask('99999-999'),
                 Forms\Components\TextInput::make('street')

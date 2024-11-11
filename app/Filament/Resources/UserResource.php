@@ -4,9 +4,11 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
+use App\Models\Role;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -28,6 +30,11 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Select::make('role_id')
+                    ->label(__('Role'))
+                    ->relationship('roles', 'name')
+                    ->options(Role::all()->pluck('name', 'id'))
+                    ->required(),
                 Forms\Components\TextInput::make('name')
                     ->label(__('Name'))
                     ->required()
@@ -88,7 +95,7 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\UserClientsRelationManager::class,
         ];
     }
 
