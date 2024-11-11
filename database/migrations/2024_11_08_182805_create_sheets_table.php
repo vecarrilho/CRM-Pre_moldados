@@ -24,7 +24,7 @@ return new class extends Migration
             $table->double('max_height', 16, 2);
             $table->double('max_length', 16, 2);
             $table->boolean('has_stake')->default(false);
-            $table->string('status');
+            $table->string('status')->default('created');
         });
 
         Schema::enableForeignKeyConstraints();

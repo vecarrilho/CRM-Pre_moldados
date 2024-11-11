@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\SheetResource\Pages;
 use App\Filament\Resources\SheetResource\RelationManagers;
 use App\Models\Sheet;
+use App\Models\Client;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -28,30 +29,69 @@ class SheetResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('client_id')
-                    ->required()
-                    ->numeric(),
+                Forms\Components\Select::make('client_id')
+                    ->label(__('Client'))
+                    ->options(Client::where('status', true)->pluck('name', 'id'))
+                    ->required(),
                 Forms\Components\TextInput::make('name')
+                    ->label(__('Construction name'))
                     ->required()
                     ->maxLength(255),
+                Forms\Components\Select::make('uf')
+                    ->label(__('Construction uf'))
+                    ->required()
+                    ->options([
+                        'AC' => 'Acre',
+                        'AL' => 'Alagoas',
+                        'AP' => 'Amapá',
+                        'AM' => 'Amazonas',
+                        'BA' => 'Bahia',
+                        'CE' => 'Ceará',
+                        'DF' => 'Distrito Federal',
+                        'ES' => 'Espírito Santo',
+                        'GO' => 'Goiás',
+                        'MA' => 'Maranhão',
+                        'MT' => 'Mato Grosso',
+                        'MS' => 'Mato Grosso do Sul',
+                        'MG' => 'Minas Gerais',
+                        'PA' => 'Pará',
+                        'PB' => 'Paraíba',
+                        'PR' => 'Paraná',
+                        'PE' => 'Pernambuco',
+                        'PI' => 'Piauí',
+                        'RJ' => 'Rio de Janeiro',
+                        'RN' => 'Rio Grande do Norte',
+                        'RS' => 'Rio Grande do Sul',
+                        'RO' => 'Rondônia',
+                        'RR' => 'Roraima',
+                        'SC' => 'Santa Catarina',
+                        'SP' => 'São Paulo',
+                        'SE' => 'Sergipe',
+                        'TO' => 'Tocantins',
+                    ])
+                    ->searchable(),
                 Forms\Components\TextInput::make('city')
+                    ->label(__('Construction city'))
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('uf')
-                    ->required()
-                    ->maxLength(2),
                 Forms\Components\TextInput::make('cep')
+                    ->label(__('Construction cep'))
                     ->required()
-                    ->maxLength(255),
+                    ->mask('99999-999'),
                 Forms\Components\TextInput::make('max_height')
+                    ->label(__('Construction max height'))
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('max_length')
+                    ->label(__('Construction max length'))
                     ->required()
                     ->numeric(),
                 Forms\Components\Toggle::make('has_stake')
+                    ->label(__('Construction has stake'))
                     ->required(),
                 Forms\Components\TextInput::make('status')
+                    ->readonly()
+                    ->hiddenOn('create')
                     ->required()
                     ->maxLength(255),
             ]);

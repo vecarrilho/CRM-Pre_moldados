@@ -94,5 +94,12 @@
     "Updated at": "Atualizado em",
     "Cpf cnpj": "CPF/CNPJ",
     "Height": "Altura",
-    "Length": "Largura"
+    "Length": "Largura",
+    "Construction name": "Nome da obra",
+    "Construction city": "Cidade da obra",
+    "Construction uf": "UF da obra",
+    "Construction cep": "CEP da obra",
+    "Construction max height": "Altura máxima da obra",
+    "Construction max length": "Largura máxima da obra",
+    "Construction has stake": "Obra tem estaca?"
 }
